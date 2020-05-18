@@ -15,8 +15,10 @@ public class MainActivity extends AppCompatActivity {
 
     private Button notification;
 
+    //To identify channel
     String CHANNEL_ID = "simple_notification";
-    int NOFIFICATION_ID = 001;
+    //To differentiate channel by id
+    int NOTIFICATION_ID = 001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +27,11 @@ public class MainActivity extends AppCompatActivity {
 
         notification=findViewById(R.id.notification);
 
+        //onClickListener for button
         notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //android oreo and hire versions you need to create a notification channel
                 createNotificationChannel();
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this, CHANNEL_ID)
                         .setSmallIcon(R.drawable.ic_add_alarm_black_24dp)
@@ -35,8 +39,9 @@ public class MainActivity extends AppCompatActivity {
                         .setContentText("this is a simple notification")
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
+                //calling notification
                 NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(MainActivity.this);
-                notificationManagerCompat.notify(NOFIFICATION_ID, builder.build());
+                notificationManagerCompat.notify(NOTIFICATION_ID, builder.build());
             }
         });
 
@@ -45,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "chanel name";
+            //this is the name that appears in android system
+            CharSequence name = "channel name";
             String description = "description";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
